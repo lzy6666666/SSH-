@@ -8,7 +8,7 @@
 	<constant name="struts.action.extension" value="action"/>	
 	<!-- action配置 -->
 	<package name="ssh" extends="struts-default" namespace="/">
-		<action name="Customer_*" class="customerAction" method="{1}"></action>
+		<action name="customer_*" class="customerAction" method="{1}"></action>
 	</package>
 
 </struts>

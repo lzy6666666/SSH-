@@ -19,24 +19,6 @@
 		<property name="user" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
 	</bean>
-
-	<!-- Action的IOC -->
-	<bean id="customerAction" class="com.lzy.ssh.web.action.CustomerAction">
-		<!-- customerAction中注入CustomerService -->
-		<property name="customerService" ref="customerService"></property>
-	</bean>
-
-	<!-- service的IOC -->
-	<bean id="customerService" class="com.lzy.ssh.service.impl.CustomerServiceImpl">
-		<property name="customerDao" ref="customerDao"></property>
-	</bean>
-
-	<!-- dao的IOC -->
-	<bean id="customerDao" class="com.lzy.ssh.dao.impl.CustomerDaoImpl">
-		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
-
-
 	<!-- hibernate的整合 -->
 	<!-- 配置hibernate的工厂 -->
 	<bean id="sessionFactory"
@@ -59,8 +41,22 @@
 			</list>
 		</property>
 	</bean>
+
+	<!-- dao的IOC -->
+	<bean id="customerDao" class="com.lzy.ssh.dao.impl.CustomerDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- service的IOC -->
+	<bean id="customerService" class="com.lzy.ssh.service.impl.CustomerServiceImpl">
+		<property name="customerDao" ref="customerDao"></property>
+	</bean>
+	<!-- Action的IOC -->
+	<bean id="customerAction" class="com.lzy.ssh.web.action.CustomerAction" scope="prototype">
+		<!-- customerAction中注入CustomerService -->
+		<property name="customerService" ref="customerService"></property>
+	</bean>
 	<!-- 配置事物 -->
-	<bean id="transationManager"
+	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
